@@ -31,6 +31,8 @@ ext {
     constraintLayoutVersion = "1.0.2"
     moshiKotlinVersion = "1.5.0"
     dagger2Version = "2.13"
+    archRoomVersion = "1.0.0"
+    archVersion = "1.1.1"
 
     //test
     junitVersion = "4.12"

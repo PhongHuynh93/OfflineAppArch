@@ -18,11 +18,7 @@ abstract class BuildersModule {
 }
 
 @Module
-class AppModule(val app: App) {
-    @Provides
-    @Singleton
-    fun provideApp(): App = app
-
+class AppModule {
     @Provides
     @Singleton
     fun provideCryptocurrenciesDb(app: App): Database {

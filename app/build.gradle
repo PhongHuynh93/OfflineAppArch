@@ -42,5 +42,12 @@ dependencies {
     //Lifecycle
     implementation "android.arch.lifecycle:extensions:${rootProject.ext.archVersion}"
     kapt "android.arch.lifecycle:compiler:${rootProject.ext.archVersion}"
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-moshi:${rootProject.ext.moshiConverterVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${rootProject.ext.rxJavaAdapterVersion}"
+    //RxJava RxAndroid
+    implementation "io.reactivex.rxjava2:rxjava:${rootProject.ext.rxJava2Version}"
+    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.ext.rxAndroidVersion}"
 
 }

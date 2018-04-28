@@ -11,8 +11,9 @@ abstract class Database: RoomDatabase() {
 
 @Dao
 interface CryptocurrenciesDao {
-    @Query("SELECT * FROM cryptocurrency")
-    fun queryCryptocurrencies(): Single<List<Cryptocurrency>>
+    // note - get the info in chunks of data rather than in bulk:
+    @Query("SELECT * FROM cryptocurrency ORDER BY rank limit :limit offset :offset")
+    fun queryCryptocurrencies(limit:Int, offset:Int): Single<List<Cryptocurrency>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCryptocurrency(cryptocurrency: Cryptocurrency)

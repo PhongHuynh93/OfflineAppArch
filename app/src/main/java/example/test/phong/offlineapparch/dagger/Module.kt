@@ -10,6 +10,7 @@ import dagger.android.ContributesAndroidInjector
 import example.test.phong.offlineapparch.App
 import example.test.phong.offlineapparch.CryptocurrenciesViewModelFactory
 import example.test.phong.offlineapparch.MainActivity
+import example.test.phong.offlineapparch.Utils
 import example.test.phong.offlineapparch.db.CryptocurrenciesDao
 import example.test.phong.offlineapparch.db.Database
 import example.test.phong.offlineapparch.remote.ApiInterface
@@ -56,6 +57,10 @@ class AppModule {
     @Provides
     @Singleton
     fun provideCryptocurrenciesViewModelFactory(factory: CryptocurrenciesViewModelFactory): ViewModelProvider.Factory = factory
+
+    @Provides
+    @Singleton
+    fun provideUtils(app: App): Utils = Utils(app)
 }
 
 @Module

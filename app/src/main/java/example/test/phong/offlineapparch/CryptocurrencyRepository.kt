@@ -8,13 +8,19 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class CryptocurrencyRepository @Inject constructor(val apiInterface: ApiInterface,
-                                                   val cryptocurrenciesDao: CryptocurrenciesDao) {
+                                                   val cryptocurrenciesDao: CryptocurrenciesDao,
+                                                   val utils: Utils) {
 
-    fun getCryptocurrencies(): Observable<List<Cryptocurrency>> {
-        val observableFromApi = getCryptocurrenciesFromApi()
-        val observableFromDb = getCryptocurrenciesFromDb()
+    fun getCryptocurrencies(limit: Int, offset: Int): Observable<List<Cryptocurrency>> {
+        val hasConnection = utils.isConnectedToInternet()
+        var observableFromApi: Observable<List<Cryptocurrency>>? = null
+        if (hasConnection) {
+            observableFromApi = getCryptocurrenciesFromApi()
+        }
+        val observableFromDb = getCryptocurrenciesFromDb(limit, offset)
         // In the future (in another entry), the idea is to do a check to verify if there is a connection, and then get the data and update the DB, otherwise, get the last info from the DB, just to achieve the goal: offline first apps
-        return Observable.concatArrayEager(observableFromDb, observableFromApi)
+        return if (hasConnection) Observable.concatArrayEager(observableFromApi, observableFromDb)
+        else observableFromDb
     }
 
     fun getCryptocurrenciesFromApi(): Observable<List<Cryptocurrency>> {
@@ -27,8 +33,9 @@ class CryptocurrencyRepository @Inject constructor(val apiInterface: ApiInterfac
                 }
     }
 
-    fun getCryptocurrenciesFromDb(): Observable<List<Cryptocurrency>> {
-        return cryptocurrenciesDao.queryCryptocurrencies()
+    fun getCryptocurrenciesFromDb(limit: Int, offset: Int): Observable<List<Cryptocurrency>> {
+        val hasConnection = utils.isConnectedToInternet()
+        return cryptocurrenciesDao.queryCryptocurrencies(limit, offset)
                 .toObservable()
                 .doOnNext {
                     //Print log it.size :)

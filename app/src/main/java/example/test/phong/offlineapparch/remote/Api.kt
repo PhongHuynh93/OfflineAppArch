@@ -10,21 +10,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-class ApiClient {
-    companion object {
-        private const val BASE_URL = "https://api.coinmarketcap.com/v1/"
-        fun getClient(): Retrofit {
-            val okHttpClient = OkHttpClient.Builder().build()
-            val moshi = Moshi.Builder().build()
-
-            return Retrofit.Builder().client(okHttpClient).baseUrl(BASE_URL)
-                    .addConverterFactory(MoshiConverterFactory.create(moshi))
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build()
-        }
-    }
-}
-
 interface ApiInterface {
 
     @GET("ticker/")

@@ -15,6 +15,8 @@ interface AppComponent {
     interface Builder {
         @BindsInstance
         fun application(application: App): Builder
+        @BindsInstance
+        fun baseUrl(baseUrl: String): Builder
         fun build(): AppComponent
     }
     fun inject(app: App)

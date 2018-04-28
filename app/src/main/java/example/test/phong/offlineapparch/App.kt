@@ -14,7 +14,7 @@ class App: Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
-        DaggerAppComponent.builder().application(this).build().inject(this)
+        DaggerAppComponent.builder().application(this).baseUrl("https://api.coinmarketcap.com/v1/").build().inject(this)
     }
 
     override fun activityInjector(): AndroidInjector<Activity> {
